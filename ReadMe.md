@@ -19,7 +19,7 @@ It is important to take into account whether the affects of a false positive vs 
 
 
 <div>
-<img src="Images/inside_bank1.jpg", width = 800, height = 400/>
+<img src="images/inside_bank1.jpg", width = 800, height = 400/>
 </div>
 
 ## Data Understanding
@@ -33,19 +33,19 @@ We began by performing EDA on our data.
 The first thing we looked at is where in the USA the data came from. We had to merge our data that contained zipcodes with a different dataframe that contained longitude and latitude. At first we plotted our longitude and latitudes on a blank background. Being that there were so many datapoints, it created a pretty good map of the USA. 
 
 <div>
-<img src="Images/map1.jpg", width = 400, height = 300/>
+<img src="images/map1.jpg", width = 400, height = 300/>
 </div>
 
 We then moved on to create a fancier map that Folium and clustering. This map was interactive and created clusters of data points depending on how much you zoomed in or out
 
 <div>
-<img src="Images/map2.jpg", width = 400, height = 300/>
+<img src="images/map2.jpg", width = 400, height = 300/>
 </div>
 
 Finally, we pulled up a bar graph of the breakdown of our target column, whether the loan was paid back or not. 
 
 <div>
-<img src="Images/default_rate.jpg", width = 400, height = 300/>
+<img src="images/default_rate.jpg", width = 400, height = 300/>
 </div>
 
 The breakdown of the loans was that 76.6% were paid back and 23.4% defaulted. As such we see that we are dealing with a slightly imbalanced dataset. We then moved on to our data preparation stage.
@@ -69,7 +69,7 @@ We'll begin our modeling with a Logistic Regression model. This works by adjusti
 Here are the results of our model:
 
 <div>
-<img src="Images/baseline_report.jpg", width = 350, height = 133/>
+<img src="images/baseline_report.jpg", width = 350, height = 133/>
 </div>
 
 This is a fine model for our baseline, with a respectable f1-score. However, in our specific case we care more about precision and as such we want to tweak our model in that direction. 
@@ -150,7 +150,7 @@ For additional info, contact Joshua Edelstein at joshuaedelstein15@gmail.com
 
 This repository contains the following files and directories:
 
-Images/: This directory contains images used in the readme and presentation.  
+images/: This directory contains images used in the readme and presentation.  
 .gitignore/: This directory includes things we dont want to push, as well as our data.  
 README/: This directory gives a brief overview of the project.  
 notebook/: This directory contains a Jupyter notebook used for data exploration, modeling, and analysis.  
