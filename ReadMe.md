@@ -39,7 +39,7 @@ The first thing we looked at is where in the USA the data came from. We had to m
 We then moved on to create a fancier map that Folium and clustering. This map was interactive and created clusters of data points depending on how much you zoomed in or out
 
 <div>
-<img src="images/map2.jpg", width = 400, height = 300/>
+<img src="images/map2.jpg", width = 480, height = 300/>
 </div>
 
 Finally, we pulled up a bar graph of the breakdown of our target column, whether the loan was paid back or not. 
@@ -95,7 +95,7 @@ The model was tested on 73,855 businesses in the testing data set there was 17,3
 Here are the top 10 most important features:
 
 <div>
-<img src="images/top_features.jpg", width = 400, height = 300/>
+<img src="images/top_features.jpg", width = 480, height = 300/>
 </div>
 
 We see that the most important factor are composed of four main categories: 1) Length of the loan. 2) Year of the loan. 3) Size of the bank. 4) State of the Bank. 
