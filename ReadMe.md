@@ -60,3 +60,102 @@ The next column we needed to fill was a boolean column indicating whether the bu
 
 The last column we needed to fill, was another boolean column which indicated whether the business had a revolving line of credit. This column contained over 100,000 missing values, and there was no clearn way how to fill them. We did some EDA on the column and discovered that although the column in general had more 0s than 1s. In the years that there were missing values the columns actually contained more 1s than 0s. We then created four theoretical ways to clean the data, the first was to drop all the rows with missing data, the second was drop the column, the third was to fill all the missing values with 1s, and the last was to create a dummy column for 0,1 and missing. We then ran a very basic Decision Tree Classifier on them to determine which way performed the best. In the end the dummy columns performed the best, as such we set it inplace and moved on to our modeling
 
+## Data Analysis/ Modeling
+
+### Baseline Model
+
+We'll begin our modeling with a Logistic Regression model. This works by adjusting the coefficients of the predictors using gradient descent. Which attempts to minimize the difference between predicted probabilities and the binary values.
+
+Here are the results of our model:
+
+<div>
+<img src="Images/baseline_report.jpg", width = 350, height = 133/>
+</div>
+
+This is a fine model for our baseline, with a respectable f1-score. However, in our specific case we care more about precision and as such we want to tweak our model in that direction. 
+
+### Final Model
+
+For our final model we used an XGBoost classifier. This model is created by training a weak learner on the data, using gradient descent to minimize the loss function. Then calculating the residuals, and training a model on those residuals. As such each new learner is trained to correct the previous predictor's error. This is done a specified number of times, then the final model is a weighted combination of all the models based on its reduction to the loss function. The base model for XGBoost is a Decision Tree. Although there were models that had slightly better precision, the XGBoost model was over 100 times faster, as such we chose it for our final model. Our final model was tuned to have a threshold of .6 meaning that the model had to be atleast 60% certain the loan would be paid back to predict it would be paid back
+
+Here are the results of our final model:
+
+<div>
+<img src="images/xgb_report.jpg", width = 350, height = 133/>
+</div>
+
+Additionally, this model had a ROC score of .88. Here is the confusion matrix for our final model:
+
+<div>
+<img src="images/matrix.jpg", width = 400, height = 300/>
+</div>
+
+The model was tested on 73,855 businesses in the testing data set there was 17,309(15,710+1,599) people that defaulted on their loans, giving us a default rate of 23%. The model correctly predicted the loan status of 63,503(47,793+15,710) people, this gives us the accuracy score we saw above of 86%. The model correctly captured 47,793 of the 56,546 people who paid back their loans, giving us the recall score of 85%. Out of the 49,392 people that the model predicted would pay back their loan, the model only predicted incorrectly on 1,599 people. This gave us a precision score of 97%. The recall and precision scores were combined to give us an f1 score of .90.
+
+Here are the top 10 most important features:
+
+<div>
+<img src="images/top_features.jpg", width = 400, height = 300/>
+</div>
+
+We see that the most important factor are composed of four main categories: 1) Length of the loan. 2) Year of the loan. 3) Size of the bank. 4) State of the Bank. 
+
+## Conclusion
+We will now sum up our findings from our analysis and modeling:
+
+1. Model Type:
+- XGBoost- accomplished by training a weak learner on the data, using gradient descent to minimize the loss function. Then calculating the residuals, and training a model on those residuals. As such each new learner is trained to correct the previous predictor's error. This is done a specified number of times, then the final model is a weighted combination of all the models based on its reduction to the loss function. The base model for XGBoost is a Decision Tree.
+
+2. Model Scoring:
+- Accuracy score 86%
+- F1-score of .90
+- Precision of 97%
+- Recall of 85%
+
+3. Model Choice:
+- Firstly, we can see the tremendous improvement in all areas of our final model from our baseline model.  Especially in terms of precision our model improved from 85% to 97%. This allows us to have confidence in our model when it predicts someone will pay back a loan
+- We chose this model as our final model as it had the best combination of precision and time to run the model.
+
+4. Feature Importance:
+The most important features fell into 4 main categories:
+- The first was `Term` or the length of the loan given. We noticed that there were a few relative modes at 5, 7, 10, 15, 20. At all these term lengths the default rate was significantly lower than the rest of the loans, with 4/5 having a default rate below 5%. For the vast majority of the other term lengths the default rate was above 40%. For any loan below 5 years the default rate was between 46%-71%.
+- The next most important factor was the year of the loan. The default seemed like it was highly affected but what was going on in the economy as well as the world at that time.
+- The next factor was the size of the bank, which seemed to have loan default rates similar to a normal distribution. Meaning that the larger the bank chain or the smaller the bank chain the higher the default rate was. The banks that were middle sized had better default rates. As we noted earlier, this may not be such an issue, as the larger banks are willing to have a higher default rate in return for a far greater volume of clients.
+- Lastly, the default rates varied from state to state, ranging from 64% to 91%. 
+
+
+## Recommendations
+- We recommend that the American Bankers Association, sell our model to all banks. This should definitely lower the default rate, as our model had a precision of 97%.
+- Although we can't determine if there is a direct cause and effect relationship between shorter loans and higher default rate. Banks should definitely be more cautious with businesses asking for shorter term loans, especially when those loans are a significant sum of money.
+- Notify big banks that overall their default rates are much higher, and clarify if this is an issue. 
+
+## Limitations
+- One of the more important predictors was the year the loan was given, this is helpful for historical analysis but this won't be as helpful if we are trying to predict a current loan. 
+- The dataset is very helpful when looking at general trends; however, there is a lot of information that could be added about the business asking for the loan. This includes, age of the business, purpose of loan, type of business, and other factors.
+
+## Next Steps
+Moving forward we will offer a few possible steps to American Bankers Association:
+
+- Collect more data regarding the business asking for the loan, in hopes of improving the precision, as well as significantly improving the recall.
+- Look further into the relationship between term length and default rate, as well as bank size and default rate. 
+
+
+## For More Information
+
+See the full analysis in the <a href="https://github.com/joshuaedelstein15/Loan_default/blob/main/notebook.ipynb">Jupyter Notebook</a> or review this <a href="https://github.com/joshuaedelstein15/Loan_default/blob/main/presentation.pdf">presentation</a>.
+
+For additional info, contact Joshua Edelstein at joshuaedelstein15@gmail.com
+
+## Repository Structure
+
+This repository contains the following files and directories:
+
+Images/: This directory contains images used in the readme and presentation.  
+.gitignore/: This directory includes things we dont want to push, as well as our data.  
+README/: This directory gives a brief overview of the project.  
+notebook/: This directory contains a Jupyter notebook used for data exploration, modeling, and analysis.  
+presentation/: This directory includes the pdf of our presentation.
+
+### References
+- https://www.kaggle.com/code/ricardocolindres/loan-default-prediction-loan-parameter-optimizer
+- https://www.youtube.com/watch?v=H8Ypb8Ei9YA
