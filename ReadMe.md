@@ -125,7 +125,7 @@ The most important features fell into 4 main categories:
 
 
 ## Recommendations
-- We recommend that the American Bankers Association, sell our model to all banks. This should definitely lower the default rate, as our model had a precision of 97%.
+- We recommend that the American Bankers Association, sell our XGBoost model to all banks. This should definitely lower the default rate, as our model had a precision of 97%.
 - Although we can't determine if there is a direct cause and effect relationship between shorter loans and higher default rate. Banks should definitely be more cautious with businesses asking for shorter term loans, especially when those loans are a significant sum of money.
 - Notify big banks that overall their default rates are much higher, and clarify if this is an issue. 
 
